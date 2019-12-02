@@ -76,35 +76,35 @@ class User
             $data['sex'],
             $data['avatar'],
             new UserDetails(
-                $data['email'],
-                $data['about'],
-                $data['name'],
-                $data['www'],
-                $data['jabber'],
-                $data['gg'],
-                $data['city'],
-                $data['facebook'],
-                $data['twitter'],
-                $data['instagram']
+                $data['email'] ?? null,
+                $data['about'] ?? null,
+                $data['name'] ?? null,
+                $data['www'] ?? null,
+                $data['jabber'] ?? null,
+                $data['gg'] ?? null,
+                $data['city'] ?? null,
+                $data['facebook'] ?? null,
+                $data['twitter'] ?? null,
+                $data['instagram'] ?? null
             ),
             new UserCounts(
-                $data['links_added_count'],
-                $data['links_published_count'],
-                $data['comments_count'],
-                $data['rank'],
-                $data['followers'],
-                $data['following'],
-                $data['entries'],
-                $data['entriesComments'],
-                $data['diggs'],
-                $data['buries']
+                $data['links_added_count'] ?? null,
+                $data['links_published_count'] ?? null,
+                $data['comments_count'] ?? null,
+                $data['rank'] ?? null,
+                $data['followers'] ?? null,
+                $data['following'] ?? null,
+                $data['entries'] ?? null,
+                $data['entriesComments'] ?? null,
+                $data['diggs'] ?? null,
+                $data['buries'] ?? null
             ),
             !empty($data['signup_at']) ? new DateTime($data['signup_at']) : null,
-            $data['background'],
-            $data['is_verified'],
-            $data['is_observed'],
-            $data['is_blocked'],
-            $data['violation_url']
+            $data['background'] ?? null,
+            $data['is_verified'] ?? null,
+            $data['is_observed'] ?? null,
+            $data['is_blocked'] ?? null,
+            $data['violation_url'] ?? null
         );
     }
 

@@ -55,19 +55,19 @@ class Entry
             new \DateTime($data['date']),
             $data['body'],
             User::buildFromRaw($data['author']),
-            !empty($data['author']) ? User::buildFromRaw($data['author']) : null,
-            $data['is_blocked'],
-            $data['is_favourite'],
+            null,
+            $data['blocked'],
+            $data['favourite'],
             $data['vote_count'],
             $data['comments_count'],
             !empty($data['comment']) ? Comment::buildFromRaw($data['comment']) : null,
             !empty($data['survey']) ? Survey::buildFromRaw($data['survey']) : null,
             !empty($data['embed']) ? Embed::buildFromRaw($data['embed']) : null,
-            $data['status'],
-            $data['can_comment'],
-            $data['user_vote'],
-            $data['app'],
-            $data['violation_url']
+            $data['status'] ?? null,
+            $data['can_comment'] ?? null,
+            $data['user_vote'] ?? 0,
+            $data['app'] ?? null,
+            $data['violation_url'] ?? null
         );
     }
 
