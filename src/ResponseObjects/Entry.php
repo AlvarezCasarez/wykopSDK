@@ -57,7 +57,7 @@ class Entry
             User::buildFromRaw($data['author']),
             null,
             $data['blocked'],
-            $data['favourite'],
+            $data['favorite'],
             $data['vote_count'],
             $data['comments_count'],
             !empty($data['comment']) ? Comment::buildFromRaw($data['comment']) : null,
