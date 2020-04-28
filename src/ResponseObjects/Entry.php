@@ -55,7 +55,7 @@ class Entry
             new \DateTime($data['date']),
             $data['body'],
             User::buildFromRaw($data['author']),
-            null,
+            !empty($data['author']) ? User::buildFromRaw($data['author']) : null,
             $data['blocked'],
             $data['favorite'],
             $data['vote_count'],
