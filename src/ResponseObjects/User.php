@@ -73,7 +73,7 @@ class User
         return new User(
             $data['login'],
             $data['color'],
-            $data['sex'],
+            $data['sex'] ?? null,
             $data['avatar'],
             new UserDetails(
                 isset($data['email']) ? $data['email'] : null,
