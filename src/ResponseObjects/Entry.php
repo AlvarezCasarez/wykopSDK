@@ -31,8 +31,8 @@ class Entry
     private $voteCount;
     /** @var int */
     private $commentsCount;
-    /** @var Comment|null */
-    private $comment;
+    /** @var array|Comment[] */
+    private $comments;
     /** @var Survey|null */
     private $survey;
     /** @var Embed|null */
@@ -50,17 +50,19 @@ class Entry
 
     public static function buildFromRaw(array $data): Entry
     {
+        $comments = self::prepareComments($data);
+
         return new Entry(
             $data['id'],
             new \DateTime($data['date']),
             $data['body'],
             User::buildFromRaw($data['author']),
-            !empty($data['author']) ? User::buildFromRaw($data['author']) : null,
+            !empty($data['receiver']) ? User::buildFromRaw($data['receiver']) : null,
             $data['blocked'],
             $data['favorite'],
             $data['vote_count'],
             $data['comments_count'],
-            !empty($data['comments']) ? Comment::buildFromRaw($data['comments']) : null,
+            $comments,
             !empty($data['survey']) ? Survey::buildFromRaw($data['survey']) : null,
             !empty($data['embed']) ? Embed::buildFromRaw($data['embed']) : null,
             $data['status'] ?? null,
@@ -81,7 +83,7 @@ class Entry
         ?bool $favourite,
         ?int $voteCount,
         ?int $commentsCount,
-        ?Comment $comment,
+        array $comments,
         ?Survey $survey,
         ?Embed $embed,
         ?string $status,
@@ -99,7 +101,7 @@ class Entry
         $this->favourite = $favourite;
         $this->voteCount = $voteCount;
         $this->commentsCount = $commentsCount;
-        $this->comment = $comment;
+        $this->comments = $comments;
         $this->survey = $survey;
         $this->embed = $embed;
         $this->status = $status;
@@ -107,6 +109,25 @@ class Entry
         $this->userVote = $userVote;
         $this->app = $app;
         $this->violationUrl = $violationUrl;
+    }
+
+    /**
+     * @param array $data
+     * @return array|Comment[]
+     */
+    protected static function prepareComments(array $data): array
+    {
+        $result = [];
+
+        if (empty($data['comments'])) {
+            return $result;
+        }
+
+        foreach ($data['comments'] as $comment) {
+            $result[] = Comment::buildFromRaw($comment);
+        }
+
+        return $result;
     }
 
     public function getId(): int
@@ -154,9 +175,12 @@ class Entry
         return $this->commentsCount;
     }
 
-    public function getComment(): ?Comment
+    /**
+     * @return array|Comment[]
+     */
+    public function getComment(): array
     {
-        return $this->comment;
+        return $this->comments;
     }
 
     public function getSurvey(): ?Survey
