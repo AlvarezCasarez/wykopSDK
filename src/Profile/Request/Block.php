@@ -9,7 +9,7 @@ declare(strict_types=1);
  * Time: 22:32
  */
 
-namespace XzSoftware\WykopSDK\UserManagement\Request;
+namespace XzSoftware\WykopSDK\Profile\Request;
 
 use XzSoftware\WykopSDK\Profile\Builder\StatusBuilder;
 use XzSoftware\WykopSDK\RequestObjects\PostObject;

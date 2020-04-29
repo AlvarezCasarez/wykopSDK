@@ -21,7 +21,9 @@ class Upvoters extends GetObject
     public function __construct(int $id, ?int $page = null)
     {
         $this->id = $id;
-        if (!empty($page)) $this->setPage($page);
+        if (!empty($page)) {
+            $this->setPage($page);
+        }
     }
 
 

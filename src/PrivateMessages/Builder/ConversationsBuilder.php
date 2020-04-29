@@ -19,8 +19,7 @@ class ConversationsBuilder
     public function build(array $data): Conversations
     {
         $conversations = [];
-        foreach ($data['data'] as $conversation)
-        {
+        foreach ($data['data'] as $conversation) {
             $conversations[] = Conversation::buildFromRaw($conversation);
         }
 

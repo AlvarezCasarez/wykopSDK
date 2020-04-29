@@ -19,8 +19,12 @@ class Hot extends GetObject
 
     public function __construct(int $period = null, int $page = null)
     {
-        if (!empty($period)) $this->setPeriod($period);
-        if (!empty($page)) $this->setPage($page);
+        if (!empty($period)) {
+            $this->setPeriod($period);
+        }
+        if (!empty($page)) {
+            $this->setPage($page);
+        }
     }
 
     public function setPeriod(int $period): self

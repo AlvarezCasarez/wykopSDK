@@ -38,6 +38,5 @@ class VoteSurvey extends GetObject
 
     public function getResponseBuilder()
     {
-
     }
 }

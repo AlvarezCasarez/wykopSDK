@@ -40,6 +40,5 @@ class Avatar extends PostObject
 
     public function getResponseBuilder()
     {
-
     }
 }

@@ -91,5 +91,4 @@ class Duplicate
     {
         return $this->photos;
     }
-
 }

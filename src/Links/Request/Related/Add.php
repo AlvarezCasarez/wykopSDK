@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace XzSoftware\WykopSDK\Links\Request\Related;
 
-use XzSoftware\WykopSDK\Links\Builder\CommentBuilder;
 use XzSoftware\WykopSDK\Links\Builder\RelatedBuilder;
 use XzSoftware\WykopSDK\RequestObjects\PostObject;
 

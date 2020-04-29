@@ -7,3 +7,8 @@
 /.idea/
 /.ssh/
 
+/phpcs.xml
+/phpmd.xml
+/phpstan.neon
+/.phpcs-cache
+/.php_cs.cache

@@ -103,5 +103,4 @@ class Embed
     {
         return $this->ratio;
     }
-
 }

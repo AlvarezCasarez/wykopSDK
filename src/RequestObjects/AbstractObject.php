@@ -84,5 +84,5 @@ abstract class AbstractObject implements ApiObjectInterface
         return $this->getPrefix() . $urlParams;
     }
 
-    public abstract function getPrefix(): string;
+    abstract public function getPrefix(): string;
 }

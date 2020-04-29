@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace XzSoftware\WykopSDK\Search\Request;
 
+use DateTime;
 use XzSoftware\WykopSDK\Builders\LinksBuilder;
 use XzSoftware\WykopSDK\RequestObjects\PostObject;
 
@@ -33,39 +34,26 @@ class Links extends PostObject
     public const TIMESPAN_MONTH = 'month';
     public const TIMESPAN_RANGE = 'range';
 
+    public const MIN_QUERY_LENGTH = 3;
+
     public function __construct(
         string $query,
         ?string $type = null,
         ?string $order = null,
         ?string $timespan = null,
         ?int $votes = null,
-        ?\DateTime $from = null,
-        ?\DateTime $to = null,
+        ?DateTime $from = null,
+        ?DateTime $to = null,
         ?int $page = null
     ) {
         $this->setQuery($query);
-
-        if (!empty($page)) {
-            $this->setPage($page);
-        }
-        if (!empty($type)) {
-            $this->setType($type);
-        }
-        if (!empty($order)) {
-            $this->setOrder($order);
-        }
-        if (!empty($timespan)) {
-            $this->setTimespan($timespan);
-        }
-        if (!empty($votes)) {
-            $this->setVotes($votes);
-        }
-        if (!empty($from)) {
-            $this->setFrom($from);
-        }
-        if (!empty($to)) {
-            $this->setTo($to);
-        }
+        $this->setPage($page);
+        $this->setType($type);
+        $this->setOrder($order);
+        $this->setTimespan($timespan);
+        $this->setVotes($votes);
+        $this->setFrom($from);
+        $this->setTo($to);
     }
 
     public function setQuery(string $query): self
@@ -74,45 +62,66 @@ class Links extends PostObject
         return $this;
     }
 
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
-        $this->postParams['what'] = $type;
+        if (null !== $type) {
+            $this->urlParams['what'] = $type;
+        }
+
         return $this;
     }
 
-    public function setOrder(string $order): self
+    public function setOrder(?string $order): self
     {
-        $this->postParams['sort'] = $order;
+        if (null !== $order) {
+            $this->urlParams['sort'] = $order;
+        }
+
         return $this;
     }
 
-    public function setTimespan(string $timespan): self
+    public function setTimespan(?string $timespan): self
     {
-        $this->postParams['when'] = $timespan;
+        if (null !== $timespan) {
+            $this->urlParams['when'] = $timespan;
+        }
+
         return $this;
     }
 
-    public function setVotes(int $votes): self
+    public function setVotes(?int $votes): self
     {
-        $this->postParams['votes'] = $votes;
+        if (null !== $votes) {
+            $this->urlParams['votes'] = $votes;
+        }
+
         return $this;
     }
 
-    public function setFrom(\DateTime $from): self
+    public function setFrom(?DateTime $from): self
     {
-        $this->postParams['from'] = $from->format('Y-m-d');
+        if (null !== $from) {
+            $this->urlParams['from'] = $from->format('Y-m-d');
+        }
+
         return $this;
     }
 
-    public function setTo(\DateTime $to): self
+    public function setTo(?DateTime $to): self
     {
-        $this->postParams['to'] = $to->format('Y-m-d');
+        if (null !== $to) {
+            $this->urlParams['to'] = $to->format('Y-m-d');
+        }
+
         return $this;
     }
 
-    public function setPage(int $page): self
+    public function setPage(?int $page): self
     {
-        $this->urlParams['page'] = $page;
+        if (null !== $page) {
+            $this->urlParams['page'] = $page;
+        }
+
         return $this;
     }
 
@@ -123,11 +132,22 @@ class Links extends PostObject
 
     public function isValid(): bool
     {
-        $queryValid = strlen($this->postParams['q']) > 3;
-        $typeValid = $orderValid = $timespanValid = true;
+        $queryValid = strlen($this->postParams['q']) > self::MIN_QUERY_LENGTH;
+
+        $isTypeValid = $this->validateType();
+        $isOrderValid = $this->validateSort();
+        $isTimespanValid = $this->validateTimespan();
+        $isRangeValid = $this->validateRange();
+
+        return $queryValid && $isTypeValid && $isOrderValid && $isTimespanValid && $isRangeValid;
+    }
+
+    private function validateType(): bool
+    {
+        $isTypeValid = true;
 
         if (!empty($this->postParams['type'])) {
-            $typeValid = in_array(
+            $isTypeValid = in_array(
                 $this->postParams['type'],
                 [
                     self::TYPE_ALL,
@@ -137,8 +157,16 @@ class Links extends PostObject
                 ]
             );
         }
+
+        return $isTypeValid;
+    }
+
+    private function validateSort(): bool
+    {
+        $isOrderValid = true;
+
         if (!empty($this->postParams['sort'])) {
-            $orderValid = in_array(
+            $isOrderValid = in_array(
                 $this->postParams['sort'],
                 [
                     self::ORDER_NEW,
@@ -149,25 +177,39 @@ class Links extends PostObject
             );
         }
 
-        if (!empty($this->postParams['when']))
-        $timespanValid = in_array(
-            $this->postParams['when'],
-            [
-                self::TIMESPAN_ALL,
-                self::TIMESPAN_MONTH,
-                self::TIMESPAN_RANGE,
-                self::TIMESPAN_TODAY,
-                self::TIMESPAN_WEEK,
-                self::TIMESPAN_YESTERDAY
-            ]
-        );
+        return $isOrderValid;
+    }
 
-        $rangeValid = true;
-        if (!empty($this->postParams['when']) && $this->postParams['when'] === self::TIMESPAN_RANGE) {
-            $rangeValid = $this->postParams['from']->getTimestamp() < $this->postParams['to']->getTimestamp();
+    private function validateTimespan(): bool
+    {
+        $isTimespanValid = true;
+
+        if (!empty($this->postParams['when'])) {
+            $isTimespanValid = in_array(
+                $this->postParams['when'],
+                [
+                    self::TIMESPAN_ALL,
+                    self::TIMESPAN_MONTH,
+                    self::TIMESPAN_RANGE,
+                    self::TIMESPAN_TODAY,
+                    self::TIMESPAN_WEEK,
+                    self::TIMESPAN_YESTERDAY
+                ]
+            );
         }
 
-        return $queryValid && $typeValid && $orderValid && $timespanValid && $rangeValid;
+        return $isTimespanValid;
+    }
+
+    private function validateRange(): bool
+    {
+        $isRangeValid = true;
+
+        if (!empty($this->postParams['when']) && $this->postParams['when'] === self::TIMESPAN_RANGE) {
+            $isRangeValid = $this->postParams['from']->getTimestamp() < $this->postParams['to']->getTimestamp();
+        }
+
+        return $isRangeValid;
     }
 
     public function getResponseBuilder(): LinksBuilder

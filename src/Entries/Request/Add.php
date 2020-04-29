@@ -30,7 +30,7 @@ class Add extends PostObject
 
         if (is_resource($embed)) {
             $this->setEmbedFile($embed);
-        } else if (!empty($embed) && is_string($embed)) {
+        } elseif (!empty($embed) && is_string($embed)) {
             $this->setEmbedString($embed);
         }
 

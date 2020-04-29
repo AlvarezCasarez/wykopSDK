@@ -22,10 +22,12 @@ class ActionsBuilder
     public function build(array $data): Actions
     {
         $actions = [];
-        foreach($data['data'] as $action) {
+        foreach ($data['data'] as $action) {
             $actions[] = new Action(
                 $action['type'],
-                $action['type'] === 'entry' ? Entry::buildFromRaw($action['entry']) : Link::buildFromRaw($action['link'])
+                $action['type'] === 'entry'
+                    ? Entry::buildFromRaw($action['entry'])
+                    : Link::buildFromRaw($action['link'])
             );
         }
 

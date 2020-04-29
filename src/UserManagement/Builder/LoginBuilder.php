@@ -14,7 +14,6 @@ namespace XzSoftware\WykopSDK\UserManagement\Builder;
 use XzSoftware\WykopSDK\ResponseObjects\User;
 use XzSoftware\WykopSDK\UserManagement\Response\Login;
 
-
 class LoginBuilder
 {
     public function build(array $data): Login

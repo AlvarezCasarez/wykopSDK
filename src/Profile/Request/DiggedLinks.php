@@ -11,43 +11,10 @@ declare(strict_types=1);
 
 namespace XzSoftware\WykopSDK\Profile\Request;
 
-use XzSoftware\WykopSDK\Builders\LinksBuilder;
-use XzSoftware\WykopSDK\RequestObjects\GetObject;
-
-class DiggedLinks extends GetObject
+class DiggedLinks extends AbstractLinks
 {
-    private $login;
-
-    public function __construct(string $login, ?int $page = null)
-    {
-        $this->login = $login;
-        if (!empty($page)) $this->setPage($page);
-    }
-
-    public function setLogin(string $login): self
-    {
-        $this->login = $login;
-
-        return $this;
-    }
-
-    public function setPage(?int $page): self
-    {
-        $this->urlParams['page'] = $page;
-    }
-
     public function getPrefix(): string
     {
         return 'Profiles/Digged/' . $this->login . '/';
-    }
-
-    public function isValid(): bool
-    {
-        return !empty($this->login);
-    }
-
-    public function getResponseBuilder(): LinksBuilder
-    {
-        return new LinksBuilder();
     }
 }

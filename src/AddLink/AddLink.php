@@ -48,5 +48,4 @@ class AddLink
             ->getResponseBuilder()
             ->build($this->client->handle($link));
     }
-
 }

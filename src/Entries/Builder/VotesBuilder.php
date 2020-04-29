@@ -20,8 +20,7 @@ class VotesBuilder
     {
         $votes = [];
 
-        foreach($data[$key] as $key => $vote) {
-
+        foreach ($data[$key] as $key => $vote) {
             $votes[] = new Vote(
                 User::buildFromRaw($vote['author']),
                 (int) $vote['vote_type'],

@@ -21,7 +21,6 @@ class Image extends PostObject
         $this
             ->setDraftKey($key)
             ->setUrl($url);
-
     }
 
     public function setUrl(string $url): self

@@ -19,7 +19,7 @@ class HitsBuilder
     public function build(array $data): Hits
     {
         $links = [];
-        foreach($data['data'] as $link) {
+        foreach ($data['data'] as $link) {
             $links[] = Link::buildFromRaw($link);
         }
 

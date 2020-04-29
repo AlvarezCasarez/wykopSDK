@@ -215,5 +215,4 @@ class Comment
     {
         return $this->voteCountMinus;
     }
-
 }

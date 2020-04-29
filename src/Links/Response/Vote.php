@@ -35,5 +35,4 @@ class Vote
     {
         return $this->date;
     }
-
 }

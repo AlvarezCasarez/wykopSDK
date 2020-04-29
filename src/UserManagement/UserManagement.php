@@ -17,7 +17,8 @@ use XzSoftware\WykopSDK\UserManagement\Request\Login;
 use XzSoftware\WykopSDK\UserManagement\Response\ConnectData;
 use XzSoftware\WykopSDK\UserManagement\Response\Login as LoginResponse;
 
-class UserManagement {
+class UserManagement
+{
     private $client;
 
     public function __construct(Client &$client)
@@ -28,6 +29,8 @@ class UserManagement {
     /**
      * LogIn user, returns login response
      *
+     * @param Login $loginData
+     * @return LoginResponse
      * @throws \XzSoftware\WykopSDK\Exceptions\ValidationException
      */
     public function logIn(Login $loginData): LoginResponse
@@ -42,6 +45,9 @@ class UserManagement {
 
     /**
      * Returns string that represents connection endpoint for specified application key
+     *
+     * @param string|null $redirectUrl
+     * @return string
      */
     public function getConnectLink(?string $redirectUrl = null): string
     {
@@ -51,25 +57,30 @@ class UserManagement {
     /**
      * Returns object with token, login and appkey
      *
+     * @param string $dataString
+     * @return ConnectData
      * @throws IncorrectAuthDataException
      */
     public function getAuthFromConnectData(string $dataString): ConnectData
     {
         $raw = json_decode(base64_decode($dataString), true);
         $connectData = new ConnectData($raw['appkey'], $raw['login'], $raw['token']);
+
         if (!$this->client->checkAppKey($connectData->getAppKey())) {
             throw new IncorrectAuthDataException();
         }
-
 
         return $connectData;
     }
 
     /**
      * Authenticates user for further use within SDK
+     *
+     * @param string $login
+     * @param string $token
      */
     public function authUser(string $login, string $token)
     {
         $this->client->setLogin($login)->setToken($token);
     }
-};
+}

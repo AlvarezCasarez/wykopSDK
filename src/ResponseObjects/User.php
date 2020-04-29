@@ -70,42 +70,61 @@ class User
 
     public static function buildFromRaw(array $data): self
     {
-        return new User(
+        $userDetails = self::prepareUserDetails($data);
+        $userCounts = self::prepareUserCounts($data);
+
+        $user = new User(
             $data['login'],
             $data['color'],
             $data['sex'] ?? null,
             $data['avatar'],
-            new UserDetails(
-                isset($data['email']) ? $data['email'] : null,
-                isset($data['about']) ? $data['about'] : null,
-                isset($data['name']) ? $data['name'] : null,
-                isset($data['www']) ? $data['www'] : null,
-                isset($data['jabber']) ? $data['jabber'] : null,
-                isset($data['gg']) ? $data['gg'] : null,
-                isset($data['city']) ? $data['city'] : null,
-                isset($data['facebook']) ? $data['facebook'] : null,
-                isset($data['twitter']) ? $data['twitter'] : null,
-                isset($data['instagram']) ? $data['instagram'] : null
-            ),
-            new UserCounts(
-                isset($data['links_added_count']) ? $data['links_added_count'] : null,
-                isset($data['links_published_count']) ? $data['links_published_count'] : null,
-                isset($data['comments_count']) ? $data['comments_count'] : null,
-                isset($data['rank']) ? $data['rank'] : null,
-                isset($data['followers']) ? $data['followers'] : null,
-                isset($data['following']) ? $data['following'] : null,
-                isset($data['entries']) ? $data['entries'] : null,
-                isset($data['entriesComments']) ? $data['entriesComments'] : null,
-                isset($data['diggs']) ? $data['diggs'] : null,
-                isset($data['buries']) ? $data['buries'] : null
-            ),
+            $userDetails,
+            $userCounts,
             !empty($data['signup_at']) ? new DateTime($data['signup_at']) : null,
-            isset($data['background']) ? $data['background'] : null,
-            isset($data['is_verified']) ? $data['is_verified'] : null,
-            isset($data['is_observed']) ? $data['is_observed'] : null,
-            isset($data['is_blocked']) ? $data['is_blocked'] : null,
-            isset($data['violation_url']) ? $data['violation_url'] : null
+            $data['background'] ?? null,
+            $data['is_verified'] ?? null,
+            $data['is_observed'] ??  null,
+            $data['is_blocked'] ?? null,
+            $data['violation_url'] ?? null
         );
+
+        return $user;
+    }
+
+    private static function prepareUserDetails(array $data): UserDetails
+    {
+        $userDetails = new UserDetails(
+            $data['email'] ?? null,
+            $data['about'] ?? null,
+            $data['name'] ?? null,
+            $data['www'] ?? null,
+            $data['jabber'] ?? null,
+            $data['gg'] ?? null,
+            $data['city'] ?? null,
+            $data['facebook'] ?? null,
+            $data['twitter'] ?? null,
+            $data['instagram'] ?? null
+        );
+
+        return $userDetails;
+    }
+
+    private static function prepareUserCounts(array $data): UserCounts
+    {
+        $userCounts = new UserCounts(
+            $data['links_added_count'] ?? null,
+            $data['links_published_count'] ?? null,
+            $data['comments_count'] ?? null,
+            $data['rank'] ?? null,
+            $data['followers'] ?? null,
+            $data['following'] ?? null,
+            $data['entries'] ?? null,
+            $data['entriesComments'] ?? null,
+            $data['diggs'] ?? null,
+            $data['buries'] ?? null
+        );
+
+        return $userCounts;
     }
 
     public function getLogin(): string

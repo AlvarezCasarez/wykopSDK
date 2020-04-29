@@ -20,7 +20,7 @@ class RelatedLinksBuilder
     public function build(array $data): Related
     {
         $links = [];
-        foreach($data['data'] as $link) {
+        foreach ($data['data'] as $link) {
             $links[] = RelatedLink::buildFromRaw($link);
         }
 

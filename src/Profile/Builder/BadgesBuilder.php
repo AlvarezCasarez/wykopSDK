@@ -20,7 +20,7 @@ class BadgesBuilder
     public function build(array $data): Badges
     {
         $badges = [];
-        foreach($data['data'] as $link) {
+        foreach ($data['data'] as $link) {
             $badges[] = Badge::buildFromRaw($link);
         }
 

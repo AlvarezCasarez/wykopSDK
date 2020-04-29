@@ -21,7 +21,9 @@ class CommentedLinks extends GetObject
     public function __construct(string $login, ?int $page = null)
     {
         $this->login = $login;
-        if (!empty($page)) $this->setPage($page);
+        if (!empty($page)) {
+            $this->setPage($page);
+        }
     }
 
     public function setLogin(string $login): self

@@ -16,7 +16,6 @@ use XzSoftware\WykopSDK\Links\Request\Related\Add;
 use XzSoftware\WykopSDK\Links\Request\Related\GetAll;
 use XzSoftware\WykopSDK\Links\Request\Related\Vote;
 use XzSoftware\WykopSDK\Links\Response\RelatedLinks;
-use XzSoftware\WykopSDK\Links\Response\Votes;
 use XzSoftware\WykopSDK\ResponseObjects\RelatedLink;
 
 class Related

@@ -55,7 +55,7 @@ class Survey
         $result = [
             'survey[question]' => $this->question
         ];
-        foreach($this->answers as $key => $value) {
+        foreach ($this->answers as $key => $value) {
             $result['survey[answers]['.$key.']'] = $value;
         }
 

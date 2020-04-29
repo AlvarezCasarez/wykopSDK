@@ -25,13 +25,17 @@ class Voters
     private $pagination;
 
     /**
+     * @param int $digs
+     * @param int $buries
      * @param Vote[] $votes
+     * @param Pagination $pagination
      */
     public function __construct(int $digs, int $buries, array $votes, Pagination $pagination)
     {
         $this->digs = $digs;
         $this->buries = $buries;
         $this->votes = $votes;
+        $this->pagination = $pagination;
     }
 
     public function getDigs(): int
@@ -56,5 +60,4 @@ class Voters
     {
         return $this->pagination;
     }
-
 }

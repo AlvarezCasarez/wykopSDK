@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace XzSoftware\WykopSDK\Profile\Request;
 
-
 use XzSoftware\WykopSDK\Builders\UsersBuilder;
 use XzSoftware\WykopSDK\RequestObjects\GetObject;
 
@@ -19,7 +18,9 @@ class Rank extends GetObject
 {
     public function __construct(?int $page = null)
     {
-        if (!empty($page)) $this->setPage($page);
+        if (!empty($page)) {
+            $this->setPage($page);
+        }
     }
 
     public function setPage(int $page): self

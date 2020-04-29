@@ -18,7 +18,7 @@ class Badges extends GetObject
 {
     private $login;
 
-    public function __construct(string $login, int $page = null)
+    public function __construct(string $login)
     {
         $this->login = $login;
     }
@@ -33,6 +33,8 @@ class Badges extends GetObject
     public function setPage(int $page): self
     {
         $this->urlParams['page'] = $page;
+
+        return $this;
     }
 
     public function getPrefix(): string
