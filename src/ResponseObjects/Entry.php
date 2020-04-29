@@ -119,12 +119,10 @@ class Entry
     {
         $result = [];
 
-        if (empty($data['comments'])) {
-            return $result;
-        }
-
-        foreach ($data['comments'] as $comment) {
-            $result[] = Comment::buildFromRaw($comment);
+        if (!empty($data['comments'])) {
+            foreach ($data['comments'] as $comment) {
+                $result[] = Comment::buildFromRaw($comment);
+            }
         }
 
         return $result;

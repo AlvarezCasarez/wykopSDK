@@ -21,23 +21,17 @@ class Comment
     private $author;
     /** @var int */
     private $voteCount;
-    /** @var int */
-    private $voteCountPlus;
     /** @var string */
     private $body;
-    /** @var int */
-    private $parentId;
     /** @var string */
     private $status;
-    /** @var bool */
-    private $canVote;
     /** @var int */
     private $userVote;
     /** @var bool */
     private $blocked;
     /** @var bool */
     private $favorite;
-    /** @var int commentId ?? */
+    /** @var int|null */
     private $link;
     /** @var Embed|null */
     private $embed;
@@ -47,42 +41,36 @@ class Comment
     private $violationUrl;
     /** @var int|null */
     private $voteCountMinus;
+    /** @var int|null */
+    private $voteCountPlus;
     /** @var string|null */
     private $original;
+    /** @var int|null */
+    private $parentId;
+    /** @var bool|null */
+    private $canVote;
 
     public static function buildFromRaw(array $data): Comment
     {
-        if (array_key_exists('blocked', $data)) {
-            $data['is_blocked'] = $data['blocked'];
-        }
-
-        if (array_key_exists('favorite', $data)) {
-            $data['is_favourite'] = $data['favorite'];
-        }
-
-        if (array_key_exists('link_id', $data)) {
-            $data['link'] = (int) $data['link_id'];
-        }
-
         return new Comment(
             $data['id'],
             new \DateTime($data['date']),
             User::buildFromRaw($data['author']),
             $data['vote_count'],
-            $data['vote_count_plus'],
             $data['body'],
-            $data['parent_id'],
             $data['status'],
-            $data['can_vote'],
             $data['user_vote'],
-            $data['is_blocked'],
-            $data['is_favourite'],
-            $data['link'],
+            $data['blocked'],
+            $data['favorite'],
+            $data['link_id'] ?? null,
             !empty($data['embed']) ? Embed::buildFromRaw($data['embed']) : null,
-            $data['app'],
-            $data['violation_url'],
-            $data['vote_count_minus'],
-            $data['original']
+            $data['app'] ?? null,
+            $data['violation_url'] ?? null,
+            $data['vote_count_plus'] ?? null,
+            $data['vote_count_minus'] ?? null,
+            $data['original'] ?? null,
+            $data['parent_id'] ?? null,
+            $data['can_vote'] ?? null
         );
     }
 
@@ -91,20 +79,20 @@ class Comment
         \DateTime $createdAt,
         User $author,
         int $voteCount,
-        int $voteCountPlus,
         string $body,
-        int $parentId,
         string $status,
-        bool $canVote,
         int $userVote,
         bool $blocked,
         bool $favorite,
-        int $link,
+        ?int $link,
         ?Embed $embed,
         ?string $app,
         ?string $violationUrl,
-        ?int $voteCountMinus = null,
-        ?string $original = null
+        ?int $voteCountPlus,
+        ?int $voteCountMinus,
+        ?string $original,
+        ?int $parentId,
+        ?bool $canVote
     ) {
         $this->id = $id;
         $this->createdAt = $createdAt;
@@ -126,93 +114,147 @@ class Comment
         $this->original = $original;
     }
 
-    public function getOriginal(): ?string
-    {
-        return $this->original;
-    }
-
-    public function getId(): int
+    /**
+     * @return int
+     */
+    public function getId() : int
     {
         return $this->id;
     }
 
-    public function getCreatedAt(): \DateTime
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt() : \DateTime
     {
         return $this->createdAt;
     }
 
-    public function getAuthor(): User
+    /**
+     * @return User
+     */
+    public function getAuthor() : User
     {
         return $this->author;
     }
 
-    public function getVoteCount(): int
+    /**
+     * @return int
+     */
+    public function getVoteCount() : int
     {
         return $this->voteCount;
     }
 
-    public function getVoteCountPlus(): int
-    {
-        return $this->voteCountPlus;
-    }
-
-    public function getBody(): string
+    /**
+     * @return string
+     */
+    public function getBody() : string
     {
         return $this->body;
     }
 
-    public function getParentId(): int
-    {
-        return $this->parentId;
-    }
-
-    public function getStatus(): string
+    /**
+     * @return string
+     */
+    public function getStatus() : string
     {
         return $this->status;
     }
 
-    public function isCanVote(): bool
-    {
-        return $this->canVote;
-    }
-
-    public function getUserVote(): int
+    /**
+     * @return int
+     */
+    public function getUserVote() : int
     {
         return $this->userVote;
     }
 
-    public function isBlocked(): bool
+    /**
+     * @return bool
+     */
+    public function isBlocked() : bool
     {
         return $this->blocked;
     }
 
-    public function isFavorite(): bool
+    /**
+     * @return bool
+     */
+    public function isFavorite() : bool
     {
         return $this->favorite;
     }
 
-    public function getLink(): int
+    /**
+     * @return int|null
+     */
+    public function getLink() : ?int
     {
         return $this->link;
     }
 
-    public function getEmbed(): ?Embed
+    /**
+     * @return Embed|null
+     */
+    public function getEmbed() : ?Embed
     {
         return $this->embed;
     }
 
-    public function getApp(): ?string
+    /**
+     * @return string|null
+     */
+    public function getApp() : ?string
     {
         return $this->app;
     }
 
-    public function getViolationUrl(): ?string
+    /**
+     * @return string|null
+     */
+    public function getViolationUrl() : ?string
     {
         return $this->violationUrl;
     }
 
-    public function getVoteCountMinus(): ?int
+    /**
+     * @return int|null
+     */
+    public function getVoteCountMinus() : ?int
     {
         return $this->voteCountMinus;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getVoteCountPlus() : ?int
+    {
+        return $this->voteCountPlus;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getOriginal() : ?string
+    {
+        return $this->original;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getParentId() : ?int
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCanVote() : ?bool
+    {
+        return $this->canVote;
     }
 }
