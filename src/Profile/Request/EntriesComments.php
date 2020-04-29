@@ -36,6 +36,8 @@ class EntriesComments extends GetObject
     public function setPage(int $page): self
     {
         $this->urlParams['page'] = $page;
+
+        return $this;
     }
 
     public function getPrefix(): string

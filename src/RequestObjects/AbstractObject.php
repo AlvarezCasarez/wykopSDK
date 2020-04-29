@@ -13,6 +13,10 @@ namespace XzSoftware\WykopSDK\RequestObjects;
 
 abstract class AbstractObject implements ApiObjectInterface
 {
+    public const OUTPUT_FORMAT_CLEAR = 'clear';
+    public const OUTPUT_FORMAT_ORIGINAL = 'original';
+    public const OUTPUT_FORMAT_BOTH = 'both';
+
     /** @var array POST Params */
     protected $postParams = [];
     /** @var array url Params */
@@ -48,6 +52,19 @@ abstract class AbstractObject implements ApiObjectInterface
         $return = implode(',', $return);
 
         $this->urlParams['return'] = $return;
+
+        return $this;
+    }
+
+    /**
+     * Set format of text data - with HTML tags, without or both
+     *
+     * @param string $outputFormat
+     * @return AbstractObject
+     */
+    public function setOutputFormat(string $outputFormat = self::OUTPUT_FORMAT_CLEAR): self
+    {
+        $this->urlParams['output'] = $outputFormat;
 
         return $this;
     }
