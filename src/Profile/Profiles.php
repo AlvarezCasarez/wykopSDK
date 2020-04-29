@@ -13,7 +13,7 @@ namespace XzSoftware\WykopSDK\Profile;
 
 use XzSoftware\WykopSDK\Client;
 
-use XzSoftware\WykopSDK\ResponseObjects\Entries as EntriesResponse;
+use XzSoftware\WykopSDK\Profile\Request\Block;
 use XzSoftware\WykopSDK\Profile\Request\Actions;
 use XzSoftware\WykopSDK\Profile\Request\AddedLinks;
 use XzSoftware\WykopSDK\Profile\Request\Badges;
@@ -27,23 +27,23 @@ use XzSoftware\WykopSDK\Profile\Request\Entries;
 use XzSoftware\WykopSDK\Profile\Request\EntriesComments;
 use XzSoftware\WykopSDK\Profile\Request\Followed;
 use XzSoftware\WykopSDK\Profile\Request\Followers;
+use XzSoftware\WykopSDK\Profile\Request\Observe;
 use XzSoftware\WykopSDK\Profile\Request\Profile;
 use XzSoftware\WykopSDK\Profile\Request\PublishedLinks;
 use XzSoftware\WykopSDK\Profile\Request\Rank;
 use XzSoftware\WykopSDK\Profile\Request\Related;
+use XzSoftware\WykopSDK\Profile\Request\Unblock;
+use XzSoftware\WykopSDK\Profile\Request\Unobserve;
 use XzSoftware\WykopSDK\Profile\Response\Badges as BadgesResponse;
 use XzSoftware\WykopSDK\Profile\Response\Comments as CommentsResponse;
 use XzSoftware\WykopSDK\Profile\Response\Related as RelatedResponse;
 use XzSoftware\WykopSDK\Profile\Response\Status;
 use XzSoftware\WykopSDK\ResponseObjects\Actions as ActionsResponse;
-use XzSoftware\WykopSDK\ResponseObjects\Users;
 use XzSoftware\WykopSDK\ResponseObjects\Color;
+use XzSoftware\WykopSDK\ResponseObjects\Entries as EntriesResponse;
 use XzSoftware\WykopSDK\ResponseObjects\Links;
+use XzSoftware\WykopSDK\ResponseObjects\Users;
 use XzSoftware\WykopSDK\ResponseObjects\User;
-use XzSoftware\WykopSDK\UserManagement\Request\Block;
-use XzSoftware\WykopSDK\UserManagement\Request\Observe;
-use XzSoftware\WykopSDK\UserManagement\Request\Unblock;
-use XzSoftware\WykopSDK\UserManagement\Request\Unobserve;
 
 class Profiles
 {
@@ -86,7 +86,7 @@ class Profiles
     {
         return $comments
             ->getResponseBuilder()
-            ->build($this->client->handle());
+            ->build($this->client->handle($comments));
     }
 
     public function getPublishedLinks(PublishedLinks $links): Links
