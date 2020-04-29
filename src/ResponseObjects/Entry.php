@@ -60,7 +60,7 @@ class Entry
             $data['favorite'],
             $data['vote_count'],
             $data['comments_count'],
-            !empty($data['comment']) ? Comment::buildFromRaw($data['comment']) : null,
+            !empty($data['comments']) ? Comment::buildFromRaw($data['comments']) : null,
             !empty($data['survey']) ? Survey::buildFromRaw($data['survey']) : null,
             !empty($data['embed']) ? Embed::buildFromRaw($data['embed']) : null,
             $data['status'] ?? null,
