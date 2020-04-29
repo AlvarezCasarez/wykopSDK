@@ -40,6 +40,5 @@ class Background extends PostObject
 
     public function getResponseBuilder()
     {
-
     }
 }

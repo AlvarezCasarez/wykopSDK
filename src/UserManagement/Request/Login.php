@@ -37,13 +37,15 @@ class Login extends PostObject
         return $this->postParams['login'];
     }
 
-    public function setLogin(string $login): self {
+    public function setLogin(string $login): self
+    {
         $this->postParams['login'] = $login;
 
         return $this;
     }
 
-    public function setAccountKey(string $accountKey): self {
+    public function setAccountKey(string $accountKey): self
+    {
         $this->postParams['accountkey'] = $accountKey;
 
         return $this;

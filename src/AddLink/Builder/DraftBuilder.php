@@ -19,8 +19,7 @@ class DraftBuilder
     public function build(array $data): Draft
     {
         $duplicates = [];
-        foreach ($data['duplicates'] as $duplicate)
-        {
+        foreach ($data['duplicates'] as $duplicate) {
             $duplicates[] = Link::buildFromRaw($duplicate);
         }
 

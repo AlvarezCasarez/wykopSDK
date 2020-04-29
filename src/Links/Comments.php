@@ -71,5 +71,4 @@ class Comments
             ->getResponseBuilder()
             ->build($this->client->handle($comment));
     }
-
 }

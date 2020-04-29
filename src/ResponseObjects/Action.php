@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace XzSoftware\WykopSDK\ResponseObjects;
 
-use XzSoftware\WykopSDK\ResponseObjects\Entry;
-use XzSoftware\WykopSDK\ResponseObjects\Link;
-
 class Action
 {
     /** @var string */

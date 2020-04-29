@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace XzSoftware\WykopSDK\Links\Request;
 
-
 class VoteRemove extends Vote
 {
     public function getPrefix(): string

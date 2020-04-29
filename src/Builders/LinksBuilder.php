@@ -20,7 +20,7 @@ class LinksBuilder
     public function build(array $data): Links
     {
         $links = [];
-        foreach($data['data'] as $link) {
+        foreach ($data['data'] as $link) {
             $links[] = Link::buildFromRaw($link);
         }
 

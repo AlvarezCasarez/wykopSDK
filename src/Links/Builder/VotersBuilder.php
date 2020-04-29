@@ -21,7 +21,7 @@ class VotersBuilder
     public function build(array $data): Voters
     {
         $voters = [];
-        foreach($data['data'] as $voter) {
+        foreach ($data['data'] as $voter) {
             $voters[] = new Vote(User::buildFromRaw($voter['author']), new \DateTime($voter['date']));
         }
 

@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace XzSoftware\WykopSDK\Entries\Response;
 
-use XzSoftware\WykopSDK\ResponseObjects\Entry;
-use XzSoftware\WykopSDK\ResponseObjects\Pagination;
 use XzSoftware\WykopSDK\ResponseObjects\Vote;
 
 class Votes

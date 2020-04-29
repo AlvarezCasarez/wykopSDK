@@ -23,6 +23,8 @@ class Entries extends PostObject
     public const TIMESPAN_MONTH = 'month';
     public const TIMESPAN_RANGE = 'range';
 
+    public const MIN_QUERY_LENGTH = 3;
+
     public function __construct(
         string $query,
         ?string $timespan = null,
@@ -105,10 +107,10 @@ class Entries extends PostObject
 
     public function isValid(): bool
     {
-        $queryValid = strlen($this->postParams['q']) > 3;
+        $queryValid = strlen($this->postParams['q']) > self::MIN_QUERY_LENGTH;
         $timespanValid = true;
 
-        if (!empty($this->postParams['when']))
+        if (!empty($this->postParams['when'])) {
             $timespanValid = in_array(
                 $this->postParams['when'],
                 [
@@ -120,6 +122,7 @@ class Entries extends PostObject
                     self::TIMESPAN_YESTERDAY
                 ]
             );
+        }
 
         $rangeValid = true;
         if (!empty($this->postParams['when']) && $this->postParams['when'] === self::TIMESPAN_RANGE) {

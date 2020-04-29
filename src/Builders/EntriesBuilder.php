@@ -20,7 +20,7 @@ class EntriesBuilder
     public function build(array $data): Entries
     {
         $entries = [];
-        foreach($data['data'] as $entry) {
+        foreach ($data['data'] as $entry) {
             $entries[] = Entry::buildFromRaw($entry);
         }
 

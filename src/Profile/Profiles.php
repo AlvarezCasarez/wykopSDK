@@ -45,7 +45,8 @@ use XzSoftware\WykopSDK\UserManagement\Request\Observe;
 use XzSoftware\WykopSDK\UserManagement\Request\Unblock;
 use XzSoftware\WykopSDK\UserManagement\Request\Unobserve;
 
-class Profiles {
+class Profiles
+{
     private $client;
 
     public function __construct(Client &$client)

@@ -13,4 +13,7 @@ namespace XzSoftware\WykopSDK\Exceptions;
 
 use Exception;
 
-class IncorrectAuthDataException extends Exception {}
+class IncorrectAuthDataException extends Exception
+{
+
+}

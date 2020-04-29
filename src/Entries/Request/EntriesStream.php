@@ -19,8 +19,12 @@ class EntriesStream extends GetObject
 
     public function __construct(int $id = null, int $page = null)
     {
-        if (!empty($id)) $this->setId($id);
-        if (!empty($page)) $this->setPage($page);
+        if (!empty($id)) {
+            $this->setId($id);
+        }
+        if (!empty($page)) {
+            $this->setPage($page);
+        }
     }
 
     public function setId(int $id): self

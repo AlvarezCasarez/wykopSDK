@@ -66,7 +66,9 @@ class Client
     protected function create(PostObject $object): array
     {
         $multipart = [];
-        foreach ($object->getFiles() as $filename => $file) {
+
+        // Removed $filename as unused local var
+        foreach ($object->getFiles() as $file) {
             $multipart[] = [
                 'name' => 'filename',
                 'contents' => $file
@@ -99,7 +101,8 @@ class Client
         );
     }
 
-    protected function handleResponse(ResponseInterface $response) {
+    protected function handleResponse(ResponseInterface $response)
+    {
         $result = json_decode($response->getBody()->getContents(), true);
 
         if (!empty($result['error'])) {
@@ -114,7 +117,8 @@ class Client
         return SDK::API_PREFIX . $object->getEndpoint();
     }
 
-    public function handle(ApiObjectInterface $object) {
+    public function handle(ApiObjectInterface $object)
+    {
         if (!$object->isValid()) {
             throw new ValidationException('Given object is invalid!');
         }

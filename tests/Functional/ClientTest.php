@@ -8,7 +8,7 @@
  * Time: 14:26
  */
 
-namespace XzSoftware\WykopSDK\Test;
+namespace XzSoftware\Test\WykopSDK\Functional;
 
 use PHPUnit\Framework\TestCase;
 use XzSoftware\WykopSDK\Client;
@@ -24,7 +24,8 @@ class ClientTest extends TestCase
         $testSub = new Client(new \GuzzleHttp\Client(), new Signer('secret'), 'key', 'secret');
 
         $redirect = $testSub->getConnectLink('Haha!');
-        $expected = 'https://a2.wykop.pl/Login/Connect/appkey/key/redirect/SGFoYSE%3D/secure/f506577272e4e8fa098161f0d59a3923';
+        $expected = 'https://a2.wykop.pl/Login/Connect/appkey/key/redirect/'
+            .'SGFoYSE%3D/secure/f506577272e4e8fa098161f0d59a3923';
         self::assertEquals($expected, $redirect);
     }
 }

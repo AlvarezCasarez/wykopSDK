@@ -81,6 +81,5 @@ class Profile extends PostObject
 
     public function getResponseBuilder()
     {
-
     }
 }

@@ -19,8 +19,7 @@ class TagsBuilder
     public function build(array $data): Tags
     {
         $tags = [];
-        foreach ($data['data'] as $tag)
-        {
+        foreach ($data['data'] as $tag) {
             $tags[] = new TagSuggestion($tag['tag'], $tag['followers']);
         }
 

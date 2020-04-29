@@ -20,7 +20,7 @@ class CommentsBuilder
     public function build(array $data): Comments
     {
         $actions = [];
-        foreach($data['data'] as $link) {
+        foreach ($data['data'] as $link) {
             $actions[] = Comment::buildFromRaw($link);
         }
 

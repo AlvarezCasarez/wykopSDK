@@ -20,7 +20,7 @@ class UsersBuilder
     public function build(array $data): Users
     {
         $users = [];
-        foreach($data['data'] as $user) {
+        foreach ($data['data'] as $user) {
             $users[] = User::buildFromRaw($user);
         }
 

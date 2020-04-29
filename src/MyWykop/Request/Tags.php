@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace XzSoftware\WykopSDK\MyWykop\Request;
 
-use XzSoftware\WykopSDK\MyWykop\Builder\ActionsBuilder;
+use XzSoftware\WykopSDK\Builders\ActionsBuilder;
 use XzSoftware\WykopSDK\RequestObjects\GetObject;
 
 class Tags extends GetObject

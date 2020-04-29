@@ -16,7 +16,10 @@ use XzSoftware\WykopSDK\RequestObjects\PostObject;
 
 class Profiles extends PostObject
 {
-    public function __construct(string $query) {
+    public const MIN_QUERY_LENGTH = 3;
+
+    public function __construct(string $query)
+    {
         $this->setQuery($query);
     }
 
@@ -33,7 +36,7 @@ class Profiles extends PostObject
 
     public function isValid(): bool
     {
-        return strlen($this->postParams['q']) > 3;
+        return strlen($this->postParams['q']) > self::MIN_QUERY_LENGTH;
     }
 
     public function getResponseBuilder(): UsersBuilder

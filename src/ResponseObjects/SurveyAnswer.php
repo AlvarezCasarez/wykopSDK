@@ -59,5 +59,4 @@ class SurveyAnswer
     {
         return $this->percentage;
     }
-
 }

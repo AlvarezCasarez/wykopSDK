@@ -13,10 +13,11 @@ namespace XzSoftware\WykopSDK\Exceptions;
 
 use Exception;
 
-class ApiException extends Exception {
+class ApiException extends Exception
+{
     private $raw;
 
-    public function __construct(string $message = "", int $code = 0, array $raw)
+    public function __construct(string $message = "", int $code = 0, array $raw = [])
     {
         $this->raw = $raw;
         parent::__construct($message, $code, null);

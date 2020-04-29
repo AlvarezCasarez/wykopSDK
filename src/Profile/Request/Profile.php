@@ -24,7 +24,8 @@ class Profile extends GetObject
         $this->login = $login;
     }
 
-    public function setLogin(string $login): self {
+    public function setLogin(string $login): self
+    {
         $this->login = $login;
 
         return $this;

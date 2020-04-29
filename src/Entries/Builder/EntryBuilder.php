@@ -10,10 +10,7 @@ declare(strict_types=1);
  */
 namespace XzSoftware\WykopSDK\Entries\Builder;
 
-use XzSoftware\WykopSDK\Entries\Response\Votes;
 use XzSoftware\WykopSDK\ResponseObjects\Entry;
-use XzSoftware\WykopSDK\ResponseObjects\User;
-use XzSoftware\WykopSDK\ResponseObjects\Vote;
 
 class EntryBuilder
 {
