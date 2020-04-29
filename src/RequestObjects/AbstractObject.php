@@ -37,6 +37,21 @@ abstract class AbstractObject implements ApiObjectInterface
         unset($this->urlParams['data']);
     }
 
+    /**
+     * Add additional data to response
+     *
+     * @param array $return
+     * @return AbstractObject
+     */
+    public function setReturnData(array $return): self
+    {
+        $return = implode(',', $return);
+
+        $this->urlParams['return'] = $return;
+
+        return $this;
+    }
+
     public function has($param): bool
     {
         return !empty($this->postParams[$param]) || !empty($this->urlParams[$param]);

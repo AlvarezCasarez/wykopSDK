@@ -16,12 +16,15 @@ use XzSoftware\WykopSDK\Builders\EntriesBuilder;
 
 class Entries extends GetObject
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $tag;
 
     public function __construct(string $tag, int $page = null)
     {
         $this->tag = $tag;
+
         if (!empty($page)) {
             $this->setPage($page);
         }
@@ -30,6 +33,7 @@ class Entries extends GetObject
     public function setPage(int $page): self
     {
         $this->urlParams['page'] = $page;
+
         return $this;
     }
 
